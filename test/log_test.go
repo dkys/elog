@@ -1,7 +1,7 @@
 package test
 
 import (
-	"elog"
+	"github.com/dkys/elog"
 	"log"
 	"os"
 	"runtime"
