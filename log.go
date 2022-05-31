@@ -56,7 +56,6 @@ func ErrorF(format string, v ...any) {
 	Log.SetPrefix(errorPrefix)
 	tw.color = errorColor
 	Log.Output(2, fmt.Sprintf(format, v...))
-
 }
 
 func Info(v ...any) {
@@ -70,7 +69,22 @@ func InfoF(format string, v ...any) {
 	tw.color = infoColor
 	Log.Output(2, fmt.Sprintf(format, v...))
 }
+func Panicln(v ...any) {
+	Log.SetPrefix(errorPrefix)
+	tw.color = errorColor
+	s := fmt.Sprintln(v...)
+	Log.Output(2, s)
+	panic(s)
+	//Log.Output(2, fmt.Sprintln(v...))
+}
 
+func PanicF(format string, v ...any) {
+	Log.SetPrefix(errorPrefix)
+	tw.color = errorColor
+	s := fmt.Sprintf(format, v...)
+	Log.Output(2, s)
+	panic(s)
+}
 func SetErrColor(color string) {
 	errorColor = color
 }

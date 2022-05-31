@@ -13,5 +13,6 @@ func TestLog(t *testing.T) {
 	elog.InfoF("info : %s", "format")
 	elog.Debug("debug")
 	elog.DebugF("debug : %s", "format")
-	elog.Log.Println("44")
+	//elog.Panicln("Panic")
+	elog.PanicF("Panic : %s", "format")
 }
