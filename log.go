@@ -35,40 +35,53 @@ type TimeWriter struct {
 }
 
 func Debug(v ...any) {
-	Log.SetPrefix(debugPrefix)
-	tw.color = debugColor
-	Log.Output(2, fmt.Sprintln(v...))
+	if Level > InfoLevel {
+		Log.SetPrefix(debugPrefix)
+		tw.color = debugColor
+		Log.Output(2, fmt.Sprintln(v...))
+	}
+
 }
 
 func DebugF(format string, v ...any) {
 	Log.SetPrefix(debugPrefix)
 	tw.color = debugColor
-	Log.Output(2, fmt.Sprintf(format, v...))
+	if Level > InfoLevel {
+		Log.Output(2, fmt.Sprintf(format, v...))
+	}
 }
-
-func Error(v ...any) {
-	Log.SetPrefix(errorPrefix)
-	tw.color = errorColor
-	Log.Output(2, fmt.Sprintln(v...))
-}
-
-func ErrorF(format string, v ...any) {
-	Log.SetPrefix(errorPrefix)
-	tw.color = errorColor
-	Log.Output(2, fmt.Sprintf(format, v...))
-}
-
 func Info(v ...any) {
-	Log.SetPrefix(infoPrefix)
-	tw.color = infoColor
-	Log.Output(2, fmt.Sprintln(v...))
+	if Level > ErrorLevel {
+		Log.SetPrefix(infoPrefix)
+		tw.color = infoColor
+		Log.Output(2, fmt.Sprintln(v...))
+	}
 }
 
 func InfoF(format string, v ...any) {
-	Log.SetPrefix(infoPrefix)
-	tw.color = infoColor
-	Log.Output(2, fmt.Sprintf(format, v...))
+	if Level > ErrorLevel {
+		Log.SetPrefix(infoPrefix)
+		tw.color = infoColor
+		Log.Output(2, fmt.Sprintf(format, v...))
+	}
 }
+
+func Error(v ...any) {
+	if Level > Disabled {
+		Log.SetPrefix(errorPrefix)
+		tw.color = errorColor
+		Log.Output(2, fmt.Sprintln(v...))
+	}
+}
+
+func ErrorF(format string, v ...any) {
+	if Level > Disabled {
+		Log.SetPrefix(errorPrefix)
+		tw.color = errorColor
+		Log.Output(2, fmt.Sprintf(format, v...))
+	}
+}
+
 func Panicln(v ...any) {
 	Log.SetPrefix(errorPrefix)
 	tw.color = errorColor
