@@ -12,7 +12,7 @@ import (
 
 var (
 	tw = &TimeWriter{
-		Dir:      "./",
+		Dir:      "./logs",
 		IsStdout: true,
 	}
 	errorColor  = "\u001B[3;31m"
@@ -39,6 +39,16 @@ func IsStdout(isStdout bool) {
 	mu.Lock()
 	defer mu.Unlock()
 	tw.IsStdout = isStdout
+}
+
+func SetOutPath(path string) {
+	mu.Lock()
+	defer mu.Unlock()
+	p, e := filepath.Abs(path)
+	if e != nil {
+		Error(e.Error())
+	}
+	tw.Dir = p
 }
 
 func SetCallDepth(calldepth int) {

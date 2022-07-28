@@ -22,6 +22,7 @@ func TestLog(t *testing.T) {
 	newError(errors.New("test...."))
 	elog.SetCallDepth(2)
 	elog.IsStdout(false)
+	elog.SetOutPath("./logs")
 	newInfo()
 }
 
