@@ -35,6 +35,12 @@ type TimeWriter struct {
 	color       string
 }
 
+func IsStdout(isStdout bool) {
+	mu.Lock()
+	defer mu.Unlock()
+	tw.IsStdout = isStdout
+}
+
 func SetCallDepth(calldepth int) {
 	mu.Lock()
 	defer mu.Unlock()

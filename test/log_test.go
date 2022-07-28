@@ -21,6 +21,7 @@ func TestLog(t *testing.T) {
 	newInfo()
 	newError(errors.New("test...."))
 	elog.SetCallDepth(2)
+	elog.IsStdout(false)
 	newInfo()
 }
 
