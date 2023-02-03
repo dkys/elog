@@ -106,11 +106,13 @@ func ErrorF(format string, v ...any) {
 }
 
 func Exit(v ...any) {
+	SetCallDepth(3)
 	Error(v)
 	os.Exit(1)
 }
 
 func ExitF(format string, v ...any) {
+	SetCallDepth(3)
 	ErrorF(format, v)
 	os.Exit(1)
 }
