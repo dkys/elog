@@ -105,6 +105,16 @@ func ErrorF(format string, v ...any) {
 	}
 }
 
+func Exit(v ...any) {
+	Error(v)
+	os.Exit(1)
+}
+
+func ExitF(format string, v ...any) {
+	ErrorF(format, v)
+	os.Exit(1)
+}
+
 func Panicln(v ...any) {
 	Log.SetPrefix(errorPrefix)
 	tw.color = errorColor

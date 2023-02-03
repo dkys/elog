@@ -7,6 +7,8 @@ import (
 )
 
 func TestLog(t *testing.T) {
+	//elog.Exit("退出")
+	//elog.ExitF("退出2%s", "ttt")
 	elog.SetErrColor("\033[41m")
 	//elog.SetLevel(elog.Disabled)
 	elog.Error("error")
