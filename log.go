@@ -57,69 +57,79 @@ func SetCallDepth(calldepth int) {
 	callDepth = calldepth
 }
 
+func set(pre string, color string) {
+	Log.SetPrefix(pre)
+	tw.color = color
+}
+
+func setDebug() {
+	set(debugPrefix, debugColor)
+}
+
+func setInfo() {
+	set(infoPrefix, infoColor)
+}
+
+func setError() {
+	set(errorPrefix, errorColor)
+}
+
 func Debug(v ...any) {
 	if Level > InfoLevel {
-		Log.SetPrefix(debugPrefix)
-		tw.color = debugColor
+		setDebug()
 		Log.Output(callDepth, fmt.Sprintln(v...))
 	}
 }
 
 func DebugF(format string, v ...any) {
-	Log.SetPrefix(debugPrefix)
-	tw.color = debugColor
 	if Level > InfoLevel {
+		setDebug()
 		Log.Output(callDepth, fmt.Sprintf(format, v...))
 	}
 }
 
 func Info(v ...any) {
 	if Level > ErrorLevel {
-		Log.SetPrefix(infoPrefix)
-		tw.color = infoColor
+		setInfo()
 		Log.Output(callDepth, fmt.Sprintln(v...))
 	}
 }
 
 func InfoF(format string, v ...any) {
 	if Level > ErrorLevel {
-		Log.SetPrefix(infoPrefix)
-		tw.color = infoColor
+		setInfo()
 		Log.Output(callDepth, fmt.Sprintf(format, v...))
 	}
 }
 
 func Error(v ...any) {
 	if Level > Disabled {
-		Log.SetPrefix(errorPrefix)
-		tw.color = errorColor
+		setError()
 		Log.Output(callDepth, fmt.Sprintln(v...))
 	}
 }
 
 func ErrorF(format string, v ...any) {
 	if Level > Disabled {
-		Log.SetPrefix(errorPrefix)
-		tw.color = errorColor
+		setError()
 		Log.Output(callDepth, fmt.Sprintf(format, v...))
 	}
 }
 
 func Exit(v ...any) {
-	SetCallDepth(3)
-	Error(v)
+	setError()
+	Log.Output(callDepth, fmt.Sprintln(v...))
 	os.Exit(1)
 }
 
 func ExitF(format string, v ...any) {
-	SetCallDepth(3)
-	ErrorF(format, v)
+	setError()
+	Log.Output(callDepth, fmt.Sprintf(format, v...))
 	os.Exit(1)
 }
 
 func Panicln(v ...any) {
-	Log.SetPrefix(errorPrefix)
-	tw.color = errorColor
+	setError()
 	s := fmt.Sprintln(v...)
 	Log.Output(callDepth, s)
 	panic(s)
@@ -127,8 +137,7 @@ func Panicln(v ...any) {
 }
 
 func PanicF(format string, v ...any) {
-	Log.SetPrefix(errorPrefix)
-	tw.color = errorColor
+	setError()
 	s := fmt.Sprintf(format, v...)
 	Log.Output(callDepth, s)
 	panic(s)
